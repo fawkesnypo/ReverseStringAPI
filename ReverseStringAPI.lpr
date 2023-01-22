@@ -139,6 +139,16 @@ begin
 
 end;
 
+procedure timeRequest(req:TRequest; res: TResponse);
+var
+  jObjectResponse : TJSONObject;
+begin
+  jObjectResponse := TJSONObject.Create;
+  jObjectResponse.Strings['message'] := 'Hello, this is an api that performs the inversion of words!';
+  jObjectResponse.Strings['time'] := TimeToStr(Time);
+  response(res,200,jObjectResponse);
+end;
+
 begin
   Application.Port := 9080;
   HTTPRouter.RegisterRoute('/', rmGet,@timeRequest, true);
