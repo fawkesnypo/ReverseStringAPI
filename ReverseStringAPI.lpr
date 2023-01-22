@@ -4,7 +4,7 @@ program ReverseStringAPI;
 
 uses
     {$IFDEF UNIX}cthreads, cmem,{$ENDIF} sysutils, fphttpapp, httpdefs,
-    httproute, fpjson, jsonparser,User;
+    httproute, fpjson, jsonparser,User,StrUtils;
 
 var
    us:TUser;
@@ -108,6 +108,35 @@ begin
 
   jObjectResponse.Strings['message'] := 'No user linked, please use /user route as post to perform user link';
   response(res,403,jObjectResponse);
+end;
+
+procedure stringReverse(req:TRequest; res:TResponse);
+var
+  jData: TJSONData;
+  jObject,jObjectResponse: TJSONObject;
+begin
+  jObjectResponse := TJSONObject.Create;
+  if (Length(req.content) > 0) and (Assigned(us)) then
+    begin
+        jData := GetJSON(req.Content);
+        jObject := jData as TJSONObject;
+
+        if (Length(jObject.Get('string')) > 0) and (req.Authorization = us.getToken()) then
+          begin
+              jObjectResponse.Strings['reverseString'] := ReverseString(jObject.Get('string'));
+              response(res,200,jObjectResponse);
+              jObject.Free;
+              Exit;
+          end
+        else
+            begin
+              jObject.Free;
+            end;
+    end;
+
+  jObjectResponse.Strings['message'] := 'Unauthorized!';
+  response(res,401,jObjectResponse);
+
 end;
 
 begin
