@@ -7,7 +7,7 @@ https://github.com/fawkesnypo/ReverseStringAPI/releases/tag/v1.0
 Subir API:
 
 -Windows: 
-1. Executar ReverseStringPI.exe
+1. Executar ReverseStringAPI.exe
 
 -Linux: 
 1. Instalar fpc (sudo apt-get install fpc)
