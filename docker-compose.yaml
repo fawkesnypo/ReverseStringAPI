@@ -1,0 +1,8 @@
+version: "2"
+services:
+  ubuntu:
+    network_mode: host
+    container_name: "pascal_app"
+    image: "pascal_api"
+    expose:
+      - "9080"
