@@ -142,6 +142,10 @@ end;
 begin
   Application.Port := 9080;
   HTTPRouter.RegisterRoute('/', rmGet,@timeRequest, true);
+  HTTPRouter.RegisterRoute('/user', rmPost,@createUser, false);
+  HTTPRouter.RegisterRoute('/user', rmPut,@updateUser, false);
+  HTTPRouter.RegisterRoute('/user', rmGet,@getUserToken, false);
+  HTTPRouter.RegisterRoute('/string', rmPost,@stringReverse, false);
   Application.Threaded := true;
   Application.Initialize;
   Application.Run;
